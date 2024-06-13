@@ -8,6 +8,22 @@ discord: Filip filip936
 import requests
 import bs4
 import csv
+import sys
+
+def main_fce():
+    if len(sys.argv) != 3:
+        print("Usage: python Engeto_projekt_3_final.py <URL> <output_filename>")
+        return
+    
+    url = sys.argv[1]
+    output_filename = sys.argv[2]
+    save_scrape(url, output_filename)
+
+def save_scrape(url, output_filename):
+    soup = process_response(url)
+    data, parties_data_list = scrape_data(soup)
+    save_data_csv(data, parties_data_list, output_filename)
+
 
 def process_response(url):
     response = requests.get(url)
@@ -52,7 +68,6 @@ def scrape_voting_data(url):
             data["registered"] = text_to_number(td_numbers[3].text)
             data["envelopes"] = text_to_number(td_numbers[4].text)
             data["valid"] = text_to_number(td_numbers[7].text)
-            
         else:
             print(f"Insufficient data for voting numbers in URL: {url}")
     else:
@@ -103,7 +118,7 @@ def scrape_data(soup):
     voting_data = [scrape_voting_data(url) for url in municipality_urls]
     return merge_data(municipality_urls, code_and_location, voting_data, parties_data_list), parties_data_list
 
-def save_data_csv(data, parties_data_list, filename="results_benesov.csv"):
+def save_data_csv(data, parties_data_list, filename):
     parties_list = get_parties_keys(parties_data_list)
     with open(filename, mode="w", newline='', encoding='utf-8') as file:
         writer = csv.writer(file, delimiter=',')
@@ -131,12 +146,5 @@ def write_municipality_row(writer, data, header):
         row.append(value)
     writer.writerow(row)
 
-def main_fce(url):
-    soup = process_response(url)
-    data, parties_data_list = scrape_data(soup)
-    save_data = save_data_csv(data, parties_data_list)
-    print("hotovo")
-
 if __name__ == "__main__":
-    url = "https://volby.cz/pls/ps2017nss/ps32?xjazyk=CZ&xkraj=2&xnumnuts=2101"
-    main_fce(url)
+    main_fce()
