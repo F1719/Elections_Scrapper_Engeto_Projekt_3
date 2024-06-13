@@ -21,6 +21,8 @@ To run the program, use the following command in your command line:
 python Engeto_projekt_3_final.py "https://volby.cz/pls/ps2017nss/ps32?xjazyk=CZ&xkraj=2&xnumnuts=2101" results_benesov.csv
 
 ## Function Explanation
+main_fce(): This function serves as the entry point for the program. It verifies that the correct number of command-line arguments are provided (<URL> and <output_filename>). 
+scrape_and_save(url, output_filename): Handles the scraping and saving of election data based on the provided URL.
 process_response(url): Downloads and processes the HTML page.
 find_tables(soup): Finds all tables with the class table and returns their rows.
 find_parties_tables(soup): Finds all divs with the class t2_470 and returns their rows.
@@ -36,4 +38,4 @@ save_data_csv(data, parties_data_list, filename): Saves data into a CSV file.
 get_parties_keys(parties_data_list): Retrieves the names of all parties.
 get_header(parties_list): Creates the CSV file header.
 write_municipality_row(writer, data, header): Writes a single row of data into the CSV file.
-main_fce(url): Main function that manages the entire process.
+
