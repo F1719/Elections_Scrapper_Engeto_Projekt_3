@@ -1,9 +1,7 @@
-Brief Documentation
-
+## Brief Documentation
 This script is designed for automatic data collection from the Czech Statistical Office website about elections. The script retrieves data on voter turnout, votes, and other information for individual municipalities and saves it into a CSV file.
 
-Description
-
+## Description
 The script performs the following steps:
 Downloading HTML page: Downloads the HTML page with election data using the requests library.
 Parsing HTML: Parses the HTML page and searches for tables with data on municipalities, voter counts, and votes for individual parties using the BeautifulSoup library.
@@ -11,14 +9,18 @@ Extracting data: Extracts data on municipality codes, their names, registered vo
 Merging data: Merges the data into a single list of dictionaries, where each dictionary represents one municipality.
 Saving to CSV: Saves the extracted and merged data into a CSV file.
 
-Library Installation
-
+## Library Installation
 Before running the script, it is necessary to install the required libraries:
 requests
 beautifulsoup4
 
-Function Explanation
+## Usage Instructions
+To run the program, use the following command in your command line:
 
+```bash
+python Engeto_projekt_3_final.py "https://volby.cz/pls/ps2017nss/ps32?xjazyk=CZ&xkraj=2&xnumnuts=2101" results_benesov.csv
+
+## Function Explanation
 process_response(url): Downloads and processes the HTML page.
 find_tables(soup): Finds all tables with the class table and returns their rows.
 find_parties_tables(soup): Finds all divs with the class t2_470 and returns their rows.
